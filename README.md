@@ -103,9 +103,3 @@ Here's a breakdown of the different sections of the document and what they cover
    - **Future Actions**:
      - Will create a front-end interface (likely a simple web form) for users to input data.
      - Will deploy the machine learning model in a web application using Docker and Heroku.
-
----
-
-This document serves as a comprehensive tutorial, starting from the dataset and model creation to deployment in a production environment. Each section builds upon the previous one, guiding you through the process of creating a complete machine learning project.
-
-Let me know if you need further details on any specific section or process!
