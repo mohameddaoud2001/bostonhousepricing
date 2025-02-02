@@ -1,105 +1,226 @@
-The features in the Boston Housing dataset, which are used to predict house prices, are as follows:
+# Boston House Price Prediction
 
-1. **CRIM**: Per capita crime rate by town.
-2. **ZN**: Proportion of residential land zoned for lots over 25,000 sq. ft.
-3. **INDUS**: Proportion of non-retail business acres per town.
-4. **CHAS**: Charles River dummy variable (1 if the tract bounds the river; 0 otherwise).
-5. **NOX**: Nitric oxide concentration (parts per 10 million).
-6. **RM**: Average number of rooms per dwelling.
-7. **AGE**: Proportion of owner-occupied units built before 1940.
-8. **DIS**: Weighted distances to five Boston employment centers.
-9. **RAD**: Index of accessibility to radial highways.
-10. **TAX**: Full-value property tax rate per $10,000.
-11. **PTRATIO**: Pupil-teacher ratio by town.
-12. **B**: Proportion of Black residents by town (calculated as 1000(Bk - 0.63)² where Bk is the proportion of Black residents).
-13. **LSTAT**: Percentage of lower-status population.
-14. **MEDV**: Median value of owner-occupied homes in $1000s (This is the target variable).
+This project focuses on building and deploying a machine learning model to predict house prices in Boston using a Linear Regression model. It covers data exploration, model training, web application development with Flask, and deployment to Heroku using two methods: basic deployment and a more advanced CI/CD approach with Docker and GitHub Actions.
 
-These features represent various socioeconomic, environmental, and structural factors that influence housing prices in the dataset. The goal is to use these features to predict the target variable, `MEDV` (median house value).
+## Project Overview
 
-Here's a breakdown of the different sections of the document and what they cover:
+The project follows these main steps:
 
-### 1. **Understanding the Dataset**
-   - **Overview**: This section introduces the Boston housing dataset, which is commonly used for regression problems. The goal is to predict house prices based on features like crime rate, average number of rooms, and more.
-   - **Actions**: 
-     - Loaded the dataset using `sklearn.datasets`.
-     - Examined the features, target variable, and the structure of the dataset.
-     - Introduced libraries such as `pandas`, `numpy`, and `matplotlib` for data manipulation and visualization.
+1. **Data Understanding and Preparation:**
+    *   Load the Boston Housing Dataset.
+    *   Perform Exploratory Data Analysis (EDA) to understand feature relationships and distributions.
+    *   Preprocess the data by splitting it into training/testing sets and standardizing features using `StandardScaler`.
 
-### 2. **Preparing Dataset and Basic Analysis**
-   - **Overview**: This part involves loading the Boston dataset into a DataFrame and adding column names to it for better readability.
-   - **Actions**:
-     - Created a new column for the target variable (house price).
-     - Conducted basic dataset inspection (`.info()`, `.describe()`).
-     - Checked for missing values and basic statistical summaries like mean, standard deviation, etc.
+2. **Model Building and Training:**
+    *   Train a Linear Regression model using the training data.
+    *   Evaluate the model's performance using metrics like MAE, MSE, RMSE, R-squared, and adjusted R-squared.
+    *   Save the trained model and scaler to pickle files (`regression_model.pkl` and `scaling.pkl`).
 
-### 3. **Exploratory Data Analysis (EDA)**
-   - **Overview**: The section focuses on understanding feature relationships and data trends.
-   - **Actions**:
-     - Ran correlation analysis between independent variables and the target variable.
-     - Identified highly correlated features and discussed multicollinearity.
-     - Visualized relationships using plots like scatter plots and heatmaps.
-     - Introduced the importance of checking linearity for regression tasks.
+3. **Web Application Development (Flask):**
+    *   Create a Flask web application with the following routes:
+        *   `/`: Home route that displays the main page with an input form (`home.html`).
+        *   `/predict_api`: API route for testing with tools like Postman (accepts JSON input and returns JSON prediction).
+        *   `/predict`: Route that handles form submissions, predicts the house price, and displays the result on `home.html`.
 
-### 4. **Preparing Dataset for Model Training**
-   - **Overview**: Preparing the dataset for model training, including feature selection, data splitting, and normalization.
-   - **Actions**:
-     - Split data into training and testing sets using `train_test_split`.
-     - Standardized the dataset using `StandardScaler` from `sklearn.preprocessing` to ensure features are on the same scale.
-     - Prepared independent (X) and dependent (Y) variables.
+4. **Deployment to Heroku:**
+    *   **Basic Deployment:** Deploy the application directly from the GitHub repository to Heroku.
+    *   **Deployment with Docker and GitHub Actions:**
+        *   Create a `Dockerfile` to containerize the application.
+        *   Set up a GitHub Actions workflow (`main.yaml`) to automate the build, push, and release process to Heroku.
+        *   Store Heroku credentials as secrets in the GitHub repository.
 
-### 5. **Training the Model**
-   - **Overview**: Training a linear regression model on the prepared data.
-   - **Actions**:
-     - Imported and initialized the `LinearRegression` model from `sklearn.linear_model`.
-     - Trained the model using `.fit()` on training data.
-     - Output the coefficients and intercept of the linear regression equation.
-     - Discussed the interpretation of coefficients and intercept.
+## Tools and Software Requirements
 
-### 6. **Model Evaluation**
-   - **Overview**: Evaluating the model’s performance using various metrics.
-   - **Actions**:
-     - Used performance metrics such as Mean Squared Error (MSE), Mean Absolute Error (MAE), and Root Mean Squared Error (RMSE) to evaluate the model's accuracy.
-     - Visualized residuals to check for normality and uniformity.
-     - Discussed assumptions of linear regression and how well the model fits the data.
-     - Introduced R² and adjusted R² as indicators of model fit.
+1. **GitHub Account:**
+    *   Create a GitHub account to store the project code and manage deployments.
+    *   [https://github.com/](https://github.com/)
 
-### 7. **Prediction with New Data**
-   - **Overview**: How to use the trained model to predict outcomes for new, unseen data.
-   - **Actions**:
-     - Demonstrated how to reshape and standardize new data before making predictions.
-     - Used `.predict()` to predict house prices for new input values.
-     - Highlighted the importance of applying the same transformations to new data as during model training (e.g., standardization).
+2. **VS Code IDE:**
+    *   Download and install Visual Studio Code for code editing and development.
+    *   [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
-### 8. **Pickling the Model File**
-   - **Overview**: Saving the trained model using the pickle format for future use in deployment.
-   - **Actions**:
-     - Demonstrated how to save the trained model as a `.pkl` file using `pickle.dump()`.
-     - Showed how to reload the model using `pickle.load()` and use it to make predictions.
+3. **Heroku Account:**
+    *   Create a Heroku account to deploy the web application.
+    *   [https://www.heroku.com/](https://www.heroku.com/)
 
-### 9. **Setting Up GitHub and VS Code**
-   - **Overview**: Guide on how to set up the environment for coding and deployment using GitHub and VS Code.
-   - **Actions**:
-     - Cloned a GitHub repository.
-     - Opened the project in VS Code.
-     - Explained the importance of using Git for version control.
-     - Discussed setting up the workspace and preparing to commit changes to GitHub.
+4. **Git CLI:**
+    *   Download and install Git CLI for version control and interacting with GitHub.
+    *   [https://git-scm.com/downloads](https://git-scm.com/downloads)
 
-### 10. **Tools and Software Required**
-   - **Overview**: List of tools and software necessary for building and deploying the project.
-   - **Actions**:
-     - Provided links to create accounts and download necessary software like GitHub, VS Code, and Heroku.
-     - Highlighted the importance of having these tools for both local development and deployment.
+5. **Postman (Optional):**
+    *   Download and install Postman to test the API endpoints.
+    *   [https://www.postman.com/downloads/](https://www.postman.com/downloads/)
 
-### 11. **Creating a New Python Environment**
-   - **Overview**: Walkthrough on how to create a new virtual environment for the project to isolate dependencies.
-   - **Actions**:
-     - Created a new environment using `conda create` with Python 3.7.
-     - Activated the environment and prepared it for further coding.
-     - Emphasized the importance of environment management for project consistency.
+6. **Docker Desktop (Optional but recommended):**
+    *   For using the Docker deployment method, you will need to install Docker Desktop.
+    *   [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
 
-### 12. **Future Steps (End-to-End Deployment)**
-   - **Overview**: Preparing for deploying the entire project on a cloud platform like Heroku.
-   - **Future Actions**:
-     - Will create a front-end interface (likely a simple web form) for users to input data.
-     - Will deploy the machine learning model in a web application using Docker and Heroku.
+## Project Setup
+
+1. **Create a GitHub Repository:**
+    *   Create a new GitHub repository named `boston-house-pricing` (or a name of your choice).
+    *   Add a `README.md` file.
+    *   Add a `.gitignore` file (select the Python template).
+
+2. **Clone the Repository:**
+    *   Clone the repository to your local machine using:
+        ```bash
+        git clone <repository_url>
+        ```
+
+3. **Create a Virtual Environment:**
+    *   Navigate to the cloned repository directory.
+    *   Create a new conda environment:
+        ```bash
+        conda create -p venv python=3.7 -y
+        ```
+    *   Activate the environment:
+        ```bash
+        conda activate venv
+        ```
+
+4. **Install Dependencies:**
+    *   Create a `requirements.txt` file with the following content:
+
+        ```
+        Flask
+        scikit-learn
+        pandas
+        numpy
+        matplotlib
+        gunicorn
+        ```
+    *   Install the dependencies:
+        ```bash
+        pip install -r requirements.txt
+        ```
+
+## File Structure
+content_copy
+download
+Use code with caution.
+Markdown
+
+boston-house-pricing/
+├── .github/
+│ └── workflows/
+│ └── main.yaml # GitHub Actions workflow file
+├── templates/
+│ └── home.html # HTML template for the web app
+├── app.py # Flask application code
+├── regression_model.pkl # Pickled trained regression model
+├── scaling.pkl # Pickled StandardScaler object
+├── Dockerfile # Dockerfile for containerization
+├── Procfile # Procfile for Heroku deployment
+├── requirements.txt # Project dependencies
+├── Boston_housing.ipynb # Jupyter Notebook for EDA and model training (Optional)
+└── README.md # Project README file
+
+## Running the Application Locally
+
+1. **Navigate to the project directory:**
+    ```bash
+    cd boston-house-pricing
+    ```
+
+2. **Activate the virtual environment:**
+    ```bash
+    conda activate venv
+    ```
+
+3. **Run the Flask app:**
+    ```bash
+    python app.py
+    ```
+
+4. **Access the application in your browser:**
+    *   Open `http://127.0.0.1:5000/` in your web browser.
+
+## Deployment to Heroku
+
+### Basic Deployment
+
+1. **Log in to your Heroku account.**
+2. **Create a new Heroku app:**
+    *   Click "New" -> "Create new app".
+    *   Give your app a name (e.g., `boston-house-pricing-yourname`).
+3. **Choose "Connect to GitHub" as the deployment method.**
+4. **Connect to your GitHub repository.**
+5. **Select the `main` branch.**
+6. **Click "Deploy Branch" to initiate a manual deployment.**
+7. **Once deployed, click "View" to access the app.**
+
+### Deployment with Docker and GitHub Actions
+
+1. **Create a `Dockerfile`:** (See the "Dockerfile" section below for content).
+2. **Create `.github/workflows/main.yaml`:** (See the "GitHub Actions Workflow" section below for content).
+3. **Store Heroku credentials as GitHub secrets:**
+    *   Go to your repository's "Settings" -> "Secrets".
+    *   Add the following secrets:
+        *   `HEROKU_API_KEY`: Your Heroku API key (found in your Heroku account settings).
+        *   `HEROKU_EMAIL`: Your Heroku account email.
+        *   `HEROKU_APP_NAME`: The name of your Heroku app.
+
+4. **Commit the `Dockerfile` and `main.yaml` changes to your repository.**
+5. **The commit will trigger the GitHub Actions workflow, which will build, push, and release the Docker container to Heroku.**
+
+## Dockerfile
+
+```dockerfile
+FROM python:3.7
+
+COPY . /app
+
+WORKDIR /app
+
+RUN pip install -r requirements.txt
+
+EXPOSE $PORT
+
+CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:$PORT", "app:app"]
+content_copy
+download
+Use code with caution.
+GitHub Actions Workflow (main.yaml)
+name: Deploy to Heroku
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build, Push and Release a Docker container to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_directory: ./
+          dockerfile_name: Dockerfile
+          docker_options: "--no-cache"
+          process_type: web
+content_copy
+download
+Use code with caution.
+Yaml
+Important Notes:
+
+The Jupyter Notebook (Boston_housing.ipynb) is optional and can be used for the initial EDA and model training steps.
+
+Remember to replace placeholder values (like <repository_url>, app name, etc.) with your actual values.
+
+You may need to adjust the commands in this readme if you make changes to your project's file structure or dependencies.
+
+This detailed README provides a comprehensive guide to understanding, setting up, running, and deploying the Boston House Price Prediction project. Remember to refer to the video tutorial for visual guidance and further explanations.
+
+This README provides a good starting point for your project. You can further customize it with more details about your specific implementation, findings, or any additional instructions you want to include. Remember to update it as your project evolves!
+content_copy
+download
+Use code with caution.
